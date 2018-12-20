@@ -3074,7 +3074,8 @@ static uint32_t show_video_info(int force)
 		}
 		else if (cfg.vscale_mode && height && (height <= vitems[5]))
 		{
-			float mag = int( float(cfg.vscale_mode) * vitems[5] / height ) / float(cfg.vscale_mode);
+			uint8_t factor = 1 << (cfg.vscale_mode - 1);
+			float mag = int( float(factor) * vitems[5] / height ) / float(factor);
 			height *= mag;
 			printf("Set V scaling mode: Mode: %d, Factor: %.3f, Height: %d\n", cfg.vscale_mode, mag, height);
 			spi_uio_cmd16(UIO_SETHEIGHT, height);
