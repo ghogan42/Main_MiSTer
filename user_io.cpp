@@ -3072,11 +3072,11 @@ static uint32_t show_video_info(int force)
 			printf("Set vertical scaling to : %d\n", height);
 			spi_uio_cmd16(UIO_SETHEIGHT, height);
 		}
-		else if (cfg.vscale_integer && height && (height <= vitems[5]))
+		else if (cfg.vscale_mode && height && (height <= vitems[5]))
 		{
-			uint32_t mag = vitems[5] / height;
+			float mag = int( float(cfg.vscale_mode) * vitems[5] / height ) / float(cfg.vscale_mode);
 			height *= mag;
-			printf("Set Integer V scaling: %d\n", height);
+			printf("Set V scaling mode: Mode: %d, Factor: %.3f, Height: %d\n", cfg.vscale_mode, mag, height);
 			spi_uio_cmd16(UIO_SETHEIGHT, height);
 		}
 		else
